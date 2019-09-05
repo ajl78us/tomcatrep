@@ -1,0 +1,14 @@
+<webscript>
+    <shortname>SAML Repository SP logout request</shortname>
+    <description>
+        <![CDATA[
+   The IdP will POST the SAML message to this URL after logout
+   http://<host>:<port>/alfresco/service/saml/{network_domain}/{sp}/logout-request
+   ]]>
+    </description>
+    <url>/saml/{network_domain}/{sp}/logout-request</url>
+    <format default="html">argument</format>
+    <authentication>none</authentication>
+    <transaction>required</transaction>
+    <lifecycle>internal</lifecycle>
+</webscript>

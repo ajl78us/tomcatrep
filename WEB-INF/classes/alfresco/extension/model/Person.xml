@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="mikperson:Person"
+	xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Optional meta-data about the model -->
+	<description>This is Michaels Custom Person Object</description>
+	<author>Meharnath B</author>
+	<version>1.0</version>
+
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0"
+			prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0"
+			prefix="cm" />
+		<!-- Import Alfresco System Model Definitions -->
+		<import uri="http://www.alfresco.org/model/system/1.0"
+			prefix="sys" />
+	</imports>
+
+	<!-- Custom namespace for the ACME company -->
+	<namespaces>
+		<namespace uri="http://mikhubtst.michaels.com/person/1.0"
+			prefix="mikperson" />
+	</namespaces>
+
+	<!-- =============================================================================================================== 
+		Constraints, Types, and Aspects go here... -->
+
+	<types>
+		<!-- ACME Enterprise-wide Document root type. All other custom document 
+			types would extend this one. -->
+		<type name="mikperson:mik_person">
+			<title>Sample Person Type</title>
+			<parent>cm:person</parent>
+			<properties>
+				<property name="mikperson:employeeNumber">
+					<title>Employee Number</title>
+					<type>d:text</type>
+				</property>
+				<property name="mikperson:department">
+					<title>Department</title>
+					<type>d:text</type>
+				</property>
+				<property name="mikperson:org">
+					<title>Organization</title>
+					<type>d:text</type>
+				</property>
+				<property name="mikperson:costCenter">
+					<title>Cost Center</title>
+					<type>d:text</type>
+				</property>
+				<property name="mikperson:hireDate">
+					<title>Hire Date</title>
+					<type>d:text</type>
+				</property>
+				<property name="mikperson:terminationDate">
+					<title>Termination Date</title>
+					<type>d:text</type>
+				</property>
+				<property name="mikperson:userType">
+					<title>User Type</title>
+					<type>d:text</type>
+				</property>
+			</properties>
+		</type>
+	</types>
+</model>

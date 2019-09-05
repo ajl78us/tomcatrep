@@ -1,0 +1,23 @@
+<webscript>
+   <shortname>GET SAML Enabled</shortname>
+   <description>
+   <![CDATA[
+   API to detect if SAML is enabled:
+   http://<host>:<port>/alfresco/service/saml/{tenant_domain}/{sp}/enabled
+   
+   Example response:
+   
+      {
+         "isSamlEnabled" : true | false,
+         "isSamlEnforced": true | false,
+         "idpDescription": "Identity Provider",
+         "tenantDomain" : "acme.co.uk"
+      }
+   ]]>
+   </description>
+   <url>/saml/{tenant_domain}/{sp}/enabled</url>
+   <format default="json">argument</format>
+   <authentication>none</authentication>
+   <transaction>required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>

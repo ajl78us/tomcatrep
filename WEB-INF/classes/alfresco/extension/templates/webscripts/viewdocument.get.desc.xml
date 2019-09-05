@@ -1,0 +1,6 @@
+<webscript>
+	<shortname>viewDocument</shortname>
+	<description>This is to view the document</description>
+	<url>/viewdocument?path={path}</url>
+	<authentication>user</authentication>
+</webscript>

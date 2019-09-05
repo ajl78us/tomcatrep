@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <!--                                                     -->
+    <!--            SAML (SSO / SLO) REST API                -->
+    <!--                                                     -->
+    
+    <bean id="webscripts.adminWebScriptRunHelper" 
+        class="org.alfresco.repo.web.scripts.saml.AdminWebScriptRunHelperImpl" />
+        
+    <bean id="webscripts.samlSpWebScriptHelper"
+        class="org.alfresco.repo.web.scripts.saml.SAMLSPWebScriptHelper">
+        <property name="samlConfigAdminService" ref="samlConfigAdminService"/>
+    </bean>
+    
+     <!-- SAML Enabled ? - is the network/tenant SAML-enabled (or user's primary network) -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-enabled.get"
+          class="org.alfresco.repo.web.scripts.saml.SAMLEnabledGet"
+          parent="webscript">
+          <property name="samlConfigAdminService" ref="samlConfigAdminService"/>
+          <property name="adminWebScriptRunHelper" ref="webscripts.adminWebScriptRunHelper" />
+          <property name="samlSpWebScriptHelper" ref="webscripts.samlSpWebScriptHelper" />
+          <property name="samlTenantHelper" ref="samlTenantHelper" />
+    </bean>
+
+    <!-- Admin Console License Upload -->
+    <bean id="webscript.org.alfresco.enterprise.repository.admin.user-directories.admin-saml-idp-cert-upload.post"
+          class="org.alfresco.repo.web.scripts.saml.SAMLIdpPublicCertPost"
+          parent="baseSAMLConfigAdminWebscript">
+    </bean>
+    
+    <!-- Get/Post/Put SAML Config Admin -->
+    
+    <bean id="baseSAMLConfigAdminWebscript" abstract="true" parent="webscript">
+          <property name="samlConfigAdminService" ref="samlConfigAdminService"/>
+          <property name="adminWebScriptRunHelper" ref="webscripts.adminWebScriptRunHelper" />
+          <property name="samlSpWebScriptHelper" ref="webscripts.samlSpWebScriptHelper" />
+    </bean>
+    
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-config-admin.get"
+          class="org.alfresco.repo.web.scripts.saml.SAMLConfigAdminGet"
+          parent="baseSAMLConfigAdminWebscript">
+          <property name="samlAuthenticationService" ref="samlAuthenticationService" />
+    </bean>
+    
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-config-admin.post"
+          class="org.alfresco.repo.web.scripts.saml.SAMLConfigAdminPostPut"
+          parent="baseSAMLConfigAdminWebscript">
+    </bean>
+    
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-config-admin.put"
+          class="org.alfresco.repo.web.scripts.saml.SAMLConfigAdminPostPut"
+          parent="baseSAMLConfigAdminWebscript">
+    </bean>
+    
+        <bean id="webscript.org.alfresco.repository.authentication.saml.saml-config-admin-multipart.post"
+          class="org.alfresco.repo.web.scripts.saml.SAMLConfigAdminMultipartPost"
+          parent="baseSAMLConfigAdminWebscript">
+    </bean>
+    
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-config-admin.delete"
+          class="org.alfresco.repo.web.scripts.saml.SAMLConfigAdminDelete"
+          parent="baseSAMLConfigAdminWebscript">
+    </bean>
+    
+    <bean id="baseSAMLAdminWebscript" abstract="true" parent="webscript">
+          <property name="adminWebScriptRunHelper" ref="webscripts.adminWebScriptRunHelper" />
+          <property name="samlSpWebScriptHelper" ref="webscripts.samlSpWebScriptHelper" />
+    </bean>
+    
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-sp-public-cert.get"
+          class="org.alfresco.repo.web.scripts.saml.SAMLSpPublicCertGet"
+          parent="baseSAMLAdminWebscript">
+          <property name="samlAuthenticationService" ref="samlAuthenticationService" />
+    </bean>
+    
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-sp-metadata.get"
+          class="org.alfresco.repo.web.scripts.saml.SAMLSpMetadataGet"
+          parent="baseSAMLAdminWebscript">
+          <property name="samlAuthenticationService" ref="samlAuthenticationService" />
+    </bean>
+    
+    <!-- note: requests/responses are sent/received to/from the Network-specific iDP (Identity Provider) if configured for a given Enterprise Network -->
+    
+    <bean id="baseSAMLAuthWebscript" abstract="true" parent="webscript">
+          <property name="samlConfigAdminService" ref="samlConfigAdminService"/>
+          <property name="samlAuthenticationService" ref="samlAuthenticationService" />
+          <property name="samlSpWebScriptHelper" ref="webscripts.samlSpWebScriptHelper" />
+          <property name="samlUserWebScriptAuthenticationComponent" ref="webscript.samlUserWebScriptAuthenticationComponent"/>
+    </bean>
+    
+    <!-- SAML SSO (SingleSignOn) Request - to initiate and send the SAML auth request XML -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-sso-request.get"
+          class="org.alfresco.repo.web.scripts.saml.SSORequestGet"
+          parent="baseSAMLAuthWebscript">
+    </bean>
+    
+    <bean id="webscript.samlUserWebScriptAuthenticationComponent" 
+        class="org.alfresco.repo.web.scripts.saml.SAMLUserWebScriptAuthenticationComponentImpl" >
+        <property name="ticketComponent" ref="ticketComponent"/>
+        <property name="personService" ref="PersonService" />
+        <property name="authorizationService" ref="AuthorizationService" />
+        <property name="adminWebScriptRunHelper" ref="webscripts.adminWebScriptRunHelper" />
+        <property name="userCache" ref="userCache" />
+    </bean>
+
+    <bean name="userCache" factory-bean="cacheFactory" factory-method="createCache">
+        <constructor-arg value="cache.saml.userCache"/>
+    </bean>
+
+    <!-- SAML SSO (SingleSignOn) Response => ACS (Assertion Consumer Service) - to receive the signed SAML auth response XML -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-sso-response-acs.post"
+          class="org.alfresco.repo.web.scripts.saml.SSOResponseACSPost"
+          parent="baseSAMLAuthWebscript">
+    </bean>
+    
+    <!-- SAML SLO (SingleLogOut) Request - to initiate and send the SAML SLO request XML --> 
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-slo-request.get"
+          class="org.alfresco.repo.web.scripts.saml.SLORequestGet"
+          parent="baseSAMLAuthWebscript">
+          <property name="samlTenantHelper" ref="samlTenantHelper" />
+    </bean>
+    
+    <!-- SAML SLO (SingleLogOut) Response - to receive the signed SAML SLO response XML -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-slo-response.post"
+          class="org.alfresco.repo.web.scripts.saml.SLOResponsePost"
+          parent="baseSAMLAuthWebscript">
+    </bean>
+    
+        <!-- SAML SLO (SingleLogOut) Request - to receive the signed SAML SLO request XML -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.saml-slo-request.post"
+          class="org.alfresco.repo.web.scripts.saml.SLORequestPost"
+          parent="baseSAMLAuthWebscript">
+    </bean>
+
+    <!-- SAML IdP Certificate -->
+    <bean
+        id="webscript.org.alfresco.repository.authentication.saml.saml-idp-public-cert.get"
+        class="org.alfresco.repo.web.scripts.saml.SAMLIdpPublicCertGet"
+        parent="baseSAMLAdminWebscript">
+        <property name="samlConfigAdminService" ref="samlConfigAdminService" />
+    </bean>
+    
+   <!-- Repository Admin Console messages -->
+   <bean id="samlRepoAdminConsoleResourceBundle" class="org.alfresco.i18n.ResourceBundleBootstrapComponent">
+      <property name="resourceBundles">
+         <list>
+            <value>alfresco.module.alfresco-saml-repo.messages.saml-admin-console</value>
+         </list>
+      </property>
+   </bean>
+</beans>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="mikdoc:Document"
+	xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Optional meta-data about the model -->
+	<description>This is Michaels Custom Document Object</description>
+	<author>Meharnath B</author>
+	<version>1.0</version>
+
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0"
+			prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0"
+			prefix="cm" />
+		<!-- Import Alfresco System Model Definitions -->
+		<import uri="http://www.alfresco.org/model/system/1.0"
+			prefix="sys" />
+	</imports>
+
+	<!-- Custom namespace for your domain -->
+	<namespaces>
+		<namespace uri="http://mikhub.michaels.com/document"
+			prefix="mikdoc" />
+	</namespaces>
+
+	<!-- =============================================================================================================== 
+		Constraints, Types, and Aspects go here... -->
+	<types>
+		<type name="mikdoc:mik_doc">
+			<title>Michaels Document</title>
+			<parent>cm:content</parent>
+			<properties>
+				<property name="mikdoc:persona">
+					<title>Persona</title>
+					<description>This is user Persona</description>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+					<default>Team Member</default>
+					<index enabled="true">
+						<tokenised>TRUE</tokenised>
+						<facetable>false</facetable>
+					</index>
+					<constraints>
+						<constraint name="mikdoc:personaList" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Team Member</value>
+									<value>Supervisor</value>
+									<value>Store Manager</value>
+									<value>District</value>
+									<value>Market</value>
+									<value>Zone</value>
+									<value>Support Center</value>
+								</list>
+							</parameter>
+							<parameter name="caseSensitive">
+								<value>true</value>
+							</parameter>
+							<parameter name="sorted">
+								<value>false</value>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+				<property name="mikdoc:isApproved">
+					<title>Approved</title>
+					<type>d:boolean</type>
+					<mandatory>true</mandatory>
+					<default>false</default>
+					<index enabled="true">
+						<tokenised>TRUE</tokenised>
+					</index>
+				</property>
+				<property name="mikdoc:isArchived">
+					<title>Archived</title>
+					<type>d:boolean</type>
+					<mandatory>true</mandatory>
+					<default>false</default>
+					<index enabled="true">
+						<tokenised>TRUE</tokenised>
+					</index>
+				</property>
+				<property name="mikdoc:endDate">
+					<title>End Date</title>
+					<type>d:datetime</type>
+					<mandatory>false</mandatory>
+					<index enabled="true">
+						<tokenised>TRUE</tokenised>
+					</index>
+				</property>
+				<property name="mikdoc:startDate">
+					<title>Start Date</title>
+					<type>d:datetime</type>
+					<mandatory>true</mandatory>
+					<index enabled="true">
+						<tokenised>TRUE</tokenised>
+					</index>
+				</property>
+				<property name="mikdoc:archiveDate">
+					<title>Archive Date</title>
+					<type>d:datetime</type>
+					<mandatory>false</mandatory>
+					<index enabled="true">
+						<tokenised>TRUE</tokenised>
+					</index>
+				</property>
+			</properties>
+			<associations />
+			<overrides />
+			<mandatory-aspects />
+		</type>
+	</types>
+</model>

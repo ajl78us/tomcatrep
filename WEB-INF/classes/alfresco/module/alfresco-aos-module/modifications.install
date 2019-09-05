@@ -1,0 +1,5 @@
+add|/WEB-INF/lib/aoservices-3.1.5.jar
+add|/WEB-INF/lib/alfresco-aos-repo-binding.jar
+add|/WEB-INF/lib/alfresco-aos-module.jar
+add|/WEB-INF/lib/docproc-3.1.5.jar
+add|/WEB-INF/licenses/aos-module-license.txt

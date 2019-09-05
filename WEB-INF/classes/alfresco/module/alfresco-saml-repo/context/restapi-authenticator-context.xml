@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <bean id="SamlWebscriptAuthenticatorInterceptor"
+        class="org.alfresco.repo.security.authentication.saml.apiprotect.SamlWebscriptAuthenticatorInterceptor">
+        <property name="authenticationService" ref="AuthenticationService" />
+        <property name="samlConfigAdminService" ref="samlConfigAdminService" />
+        <property name="serviceProviderName" value="rest-api" />
+        <property name="samlAuthenticatorBypassScriptFamilies">
+            <list>
+                <value>AdminConsole</value>
+            </list>
+        </property>
+        <property name="samlAuthenticatorBypassScripts">
+            <list>
+                <value>org/alfresco/enterprise/repository/admin/admin-root.get</value>
+                <value>org/alfresco/enterprise/repository/admin/admin-root.post</value>
+                <value>org/alfresco/enterprise/repository/admin/admin-dialog.post</value>
+                <value>org/alfresco/enterprise/repository/admin/general/admin-license.*</value>
+                <value>org/alfresco/enterprise/repository/admin/user-directories/.*</value>
+                <value>org/alfresco/enterprise/repository/admin/support-tools/admin-log-settings-tail.get</value>
+                <value>org/alfresco/enterprise/repository/admin/support-tools/admin-jmx-settings.*</value>
+                <value>org/alfresco/enterprise/repository/admin/support-tools/admin-log-settings.*</value>
+                <value>org/alfresco/repository/authentication/saml/saml-config-admin.get</value>
+                <value>${saml.authenticator.bypass.script.pattern}</value>
+           <!-- <value>org/alfresco/enterprise/repository/admin/.*</value> this may be too wide-->
+            </list>
+        </property>
+        <property name="samlRejectListScripts">
+        <!-- For the script ids in this list, when saml is Enforced, this interceptor will just throw an exception
+             to stop the execution of the script, no matter the authentication level required by these web scripts -->
+            <list>
+                <value>org/alfresco/repository/login.get</value>
+                <value>org/alfresco/repository/login.post</value>
+            </list>
+        </property>
+        <property name="samlRejectListScriptPaths">
+            <!-- For the script path ids in this list, when saml is Enforced, this interceptor will just throw an exception
+                 to stop the execution of the script, no matter the authentication level required by these web scripts -->
+            <list>
+                <value>/public/authentication/versions/1/tickets</value>
+            </list>
+        </property>
+        <property name="authenticationListener" ref="webScriptAuthenticationListener" />
+    </bean>
+
+    <!-- this bean will be renamed to 'webscripts.authenticator.remoteuser' by 'saml-inject-proxy-webscripts.authenticator.remoteuser' -->
+    <bean id="saml-webscripts.authenticator.remoteuser" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>org.springframework.extensions.webscripts.servlet.ServletAuthenticatorFactory</value>
+        </property>
+        <property name="target">
+            <ref bean="original-webscripts.authenticator.remoteuser"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref bean="SamlWebscriptAuthenticatorInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="saml-inject-proxy-webscripts.authenticator.remoteuser" class="org.alfresco.repo.security.authentication.saml.util.InjectProxyPostProcessor">
+        <property name="beanName" value="webscripts.authenticator.remoteuser"/>
+        <property name="replacementBeanName" value="saml-webscripts.authenticator.remoteuser"/>
+        <property name="originalBeanName" value="original-webscripts.authenticator.remoteuser"/>
+    </bean>
+
+    <!-- this bean will be renamed to 'webscripts.authenticator.webclient' by 'saml-inject-proxy-webscripts.authenticator.webclient' -->
+    <bean id="saml-webscripts.authenticator.webclient" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>org.springframework.extensions.webscripts.servlet.ServletAuthenticatorFactory</value>
+        </property>
+        <property name="target">
+            <ref bean="original-webscripts.authenticator.webclient"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref bean="SamlWebscriptAuthenticatorInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="saml-inject-proxy-webscripts.authenticator.webclient" class="org.alfresco.repo.security.authentication.saml.util.InjectProxyPostProcessor">
+        <property name="beanName" value="webscripts.authenticator.webclient"/>
+        <property name="replacementBeanName" value="saml-webscripts.authenticator.webclient"/>
+        <property name="originalBeanName" value="original-webscripts.authenticator.webclient"/>
+    </bean>
+
+
+    <!-- this bean will be renamed to 'publicapi.authenticator' by 'saml-inject-proxy-publicapi.authenticator' -->
+    <!-- The additional “API key” that we can see in the publicapi.authenticator is an undocumented “feature”. 
+         It is just used in our cloud overlay that we apply on top of the enterprise repo.
+         When/if we get to use this AMP in the Cloud overlay, we need to reevaluate this. -->
+    <bean id="saml-publicapi.authenticator" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>org.springframework.extensions.webscripts.servlet.ServletAuthenticatorFactory</value>
+        </property>
+        <property name="target">
+            <ref bean="original-publicapi.authenticator"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref bean="SamlWebscriptAuthenticatorInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="saml-inject-proxy-publicapi.authenticator" class="org.alfresco.repo.security.authentication.saml.util.InjectProxyPostProcessor">
+        <property name="beanName" value="publicapi.authenticator"/>
+        <property name="replacementBeanName" value="saml-publicapi.authenticator"/>
+        <property name="originalBeanName" value="original-publicapi.authenticator"/>
+    </bean>
+</beans>

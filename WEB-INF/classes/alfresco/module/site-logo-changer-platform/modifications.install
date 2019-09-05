@@ -1,0 +1,8 @@
+add|/WEB-INF/lib/site-logo-changer-platform-1.0-SNAPSHOT.jar
+update|/WEB-INF/lib/aopalliance-1.0.jar|/WEB-INF/classes/alfresco/module/backup/79ef103c-5bd6-11e9-bcbe-951fbc6c9606.bin
+update|/WEB-INF/lib/spring-aop-3.2.17.RELEASE.jar|/WEB-INF/classes/alfresco/module/backup/79edfec8-5bd6-11e9-bcbe-951fbc6c9606.bin
+update|/WEB-INF/lib/spring-context-3.2.17.RELEASE.jar|/WEB-INF/classes/alfresco/module/backup/79ee9b0b-5bd6-11e9-bcbe-951fbc6c9606.bin
+update|/WEB-INF/lib/spring-beans-3.2.17.RELEASE.jar|/WEB-INF/classes/alfresco/module/backup/79ee73fa-5bd6-11e9-bcbe-951fbc6c9606.bin
+update|/WEB-INF/lib/spring-core-3.2.17.RELEASE.jar|/WEB-INF/classes/alfresco/module/backup/79edb0a7-5bd6-11e9-bcbe-951fbc6c9606.bin
+update|/WEB-INF/lib/spring-expression-3.2.17.RELEASE.jar|/WEB-INF/classes/alfresco/module/backup/79ee4ce9-5bd6-11e9-bcbe-951fbc6c9606.bin
+update|/WEB-INF/lib/commons-logging-1.2.jar|/WEB-INF/classes/alfresco/module/backup/7991d506-5bd6-11e9-bcbe-951fbc6c9606.bin

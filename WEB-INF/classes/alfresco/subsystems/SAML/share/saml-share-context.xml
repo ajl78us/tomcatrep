@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- Import common SAML beans -->
+    <import resource="../common-saml-context.xml" />
+    <import resource="../share-saml-context.xml" />
+
+    <bean id="samlSpConfigAdminService"
+          class="org.alfresco.repo.security.authentication.saml.sp.SAMLSPConfigAdminServicePropertiesImpl"
+          parent="baseSamlSpConfigAdminService">
+        <property name="enabled" value="${saml.sp.isEnabled}" />
+        <property name="enforced" value="${saml.sp.isEnforced}" />
+        <property name="idpDescription" value="${saml.sp.idp.description}" />
+        <property name="idpSsoURL" value="${saml.sp.idp.sso.request.url}" />
+        <property name="idpSloRequestURL" value="${saml.sp.idp.slo.request.url}" />
+        <property name="idpSloResponseURL" value="${saml.sp.idp.slo.response.url}" />
+        <property name="spIssuerName" value="${saml.sp.idp.spIssuer}" />
+        <property name="userMappingId" value="${saml.sp.user.mapping.id}" />
+        <property name="outcomeProvideTicket" value="false" />
+        <property name="outcomeEstablishSession" value="false" />
+        <!-- TODO will be used for user provisioning (SAML-175) -->
+        <property name="userMappingEmail" value="${saml.sp.user.mapping.email}" />
+        <property name="userMappingFirstName" value="${saml.sp.user.mapping.firstName}" />
+        <property name="userMappingLastName" value="${saml.sp.user.mapping.lastName}" />
+        <property name="idpCertificatePath" value="${saml.sp.idp.certificatePath}" />
+        <property name="sloRequestNameIDFormat" value="${saml.sp.slo.request.nameid.format}" />
+        <property name="validator" ref="samlConfigValidator" />
+        <property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
+    </bean>
+
+    <bean id="samlConfigValidator" 
+        class="org.alfresco.repo.security.authentication.saml.validate.SAMLConfigValidatorImpl" />
+    
+    <!-- Subsystem beans with ID "monitor" are introspected for read-only JMX values -->
+    <bean id="monitor" class="org.alfresco.repo.security.authentication.saml.sp.SAMLMonitor">
+        <property name="samlSpConfigAdminService" ref="samlSpConfigAdminService" />
+    </bean>
+</beans>

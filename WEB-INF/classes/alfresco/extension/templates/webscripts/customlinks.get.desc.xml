@@ -1,0 +1,6 @@
+<webscript>
+	<shortname>customlinks</shortname>
+	<description>This is to view custom links</description>
+	<url>/customlinks</url>
+	<authentication>user</authentication>
+</webscript>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- The bootstrap-context.xml file is used for patch definitions, importers, 
+		 workflow, and loading custom content models.  -->
+
+    <!-- Registration of new models -->
+    <bean id="MichaelsAllinOne-platform-jar.dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
+        <property name="models">
+            <list>
+                <value>alfresco/extension/model/Person.xml</value>
+                <value>alfresco/extension/model/Document.xml</value>
+                <value>alfresco/extension/model/Link.xml</value>
+            </list>
+        </property>
+        <property name="labels">
+            <list>
+                <!-- Bootstrap Resource Bundles for the content model types, aspects, properties etc -->
+                <value>alfresco/extension/messages/custom-model</value>
+            </list>
+        </property>
+    </bean>
+</beans>
+

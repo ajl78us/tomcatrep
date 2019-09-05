@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Admin Console - Upload SAML IdP Certificate</shortname>
+   <description><![CDATA[Admin Console WebScript that allows the upload of an IdP certificate.]]></description>
+   <url>/enterprise/admin/admin-saml-idp-cert-upload/{sp}</url>
+   <format default="html" />
+   <authentication>admin</authentication>
+   <lifecycle>internal</lifecycle>
+   <transaction allow="readonly">required</transaction>
+</webscript>

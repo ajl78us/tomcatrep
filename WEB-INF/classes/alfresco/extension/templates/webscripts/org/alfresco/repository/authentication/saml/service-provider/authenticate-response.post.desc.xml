@@ -1,0 +1,14 @@
+<webscript>
+   <shortname>SAML Service Provider: Assertion Consumer Service (ACS) for Authentication</shortname>
+   <description>
+   <![CDATA[
+   The IdP will let the browser POST the SAML message to this URL after authentication
+   http://<host>:<port>/alfresco/service/saml/{network_domain}/{sp}/authenticate-response
+   ]]>
+   </description>
+   <url>/saml/{network_domain}/{sp}/authenticate-response</url>
+   <format default="json">argument</format>
+   <authentication>none</authentication>
+   <transaction>required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>

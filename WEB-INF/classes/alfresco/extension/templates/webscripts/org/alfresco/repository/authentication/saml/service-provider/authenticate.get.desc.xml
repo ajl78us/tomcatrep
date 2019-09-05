@@ -1,0 +1,14 @@
+<webscript>
+   <shortname>SAML Service Provider: Authentication Entrypoint</shortname>
+   <description>
+   <![CDATA[
+   Navigate to this URL to initiate SAML
+   http://<host>:<port>/alfresco/service/saml/{network_domain}/{sp}/authenticate
+   ]]>
+   </description>
+   <url>/saml/{network_domain}/{sp}/authenticate</url>
+   <format default="html">argument</format>
+   <authentication>none</authentication>
+   <transaction>required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>

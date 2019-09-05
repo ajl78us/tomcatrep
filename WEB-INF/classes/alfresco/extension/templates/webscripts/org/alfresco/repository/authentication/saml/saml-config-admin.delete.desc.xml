@@ -1,0 +1,24 @@
+<webscript>
+   <shortname>Delete SAML Config</shortname>
+   <description>
+   <![CDATA[
+   Delete SAML config for given network/tenant, if configured
+   
+   http://<host>:<port>/alfresco/a/{network}/saml/{sp}/config
+   
+   Example response from this web script:
+   
+      {
+         "success" : true | false
+      }
+      
+   Notes:
+   - user must be a Network Admin for given network/tenant
+   ]]>
+   </description>
+   <url>/saml/{sp}/config</url>
+   <format default="json">argument</format>
+   <authentication>user</authentication>
+   <transaction>required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>

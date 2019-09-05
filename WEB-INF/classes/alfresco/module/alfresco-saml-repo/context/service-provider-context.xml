@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+   <!-- SAML Service Provider: Authentication Entrypoint -->
+   <bean id="webscript.org.alfresco.repository.authentication.saml.service-provider.authenticate.get"
+         class="org.alfresco.repo.web.scripts.saml.sp.AuthenticateGet"
+         parent="baseSAMLAuthWebscript">
+   </bean>
+   
+   <!-- SAML Service Provider: Assertion Consumer Service (ACS) for Authentication -->
+   <bean id="webscript.org.alfresco.repository.authentication.saml.service-provider.authenticate-response.post"
+         class="org.alfresco.repo.web.scripts.saml.sp.AuthenticateResponsePost"
+         parent="baseSAMLAuthWebscript">
+      <property name="samlUserWebScriptAuthenticationComponent" ref="webscript.samlUserWebScriptAuthenticationComponent"/>
+      <property name="cookieLifetime" value="${saml.cookie.lifetime}"/>
+      <property name="sysAdminParams" ref="sysAdminParams" />
+   </bean>
+    
+   <!-- SAML Service Provider: Detect if SAML is enabled or not -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.service-provider.enabled.get"
+          class="org.alfresco.repo.web.scripts.saml.SAMLEnabledGet"
+          parent="webscript">
+          <property name="samlConfigAdminService" ref="samlConfigAdminService"/>
+          <property name="adminWebScriptRunHelper" ref="webscripts.adminWebScriptRunHelper" />
+          <property name="samlSpWebScriptHelper" ref="webscripts.samlSpWebScriptHelper" />
+          <property name="samlTenantHelper" ref="samlTenantHelper" />
+    </bean>
+
+    <!-- SAML Service Provider: Logout -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.service-provider.logout-request.get"
+          class="org.alfresco.repo.web.scripts.saml.sp.LogoutGet"
+          parent="baseSAMLAuthWebscript">
+        <property name="samlTenantHelper" ref="samlTenantHelper" />
+    </bean>
+
+    <!-- SAML Service Provider: Logout response -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.service-provider.logout-response.post"
+          class="org.alfresco.repo.web.scripts.saml.sp.LogoutResponsePost"
+          parent="baseSAMLAuthWebscript">
+    </bean>
+
+    <!-- SAML Service Provider: Logout request -->
+    <bean id="webscript.org.alfresco.repository.authentication.saml.service-provider.logout-request.post"
+          class="org.alfresco.repo.web.scripts.saml.sp.LogoutRequestPost"
+          parent="baseSAMLAuthWebscript">
+    </bean>
+</beans>

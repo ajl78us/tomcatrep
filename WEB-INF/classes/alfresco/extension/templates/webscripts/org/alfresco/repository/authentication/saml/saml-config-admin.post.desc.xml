@@ -1,0 +1,30 @@
+<webscript>
+   <shortname>POST SAML Config</shortname>
+   <description>
+   <![CDATA[
+   Post SAML config for given network/tenant
+   
+   http://<host>:<port>/alfresco/a/{network}/saml/{sp}/config
+   
+   Example body to this web script:
+   
+   {
+       "ssoEnabled" : true,
+       "ssoEnforced" : true,
+       "idpDescription" : "Identity Provider",
+       "idpSsoURL" : "https://localhost:9031/idp/SSO.saml2",
+       "idpSloRequestURL" : "https://localhost:9031/idp/SLO.saml2",
+       "idpSloResponseURL" : "https://localhost:9031/idp/SLO.saml2",
+	   "certificate" : "MIICXTCCAcagAwIBAgIGATDjcWMtRe..."
+	}
+   
+   Notes:
+   - user must be a Network Admin for given network/tenant
+   ]]>
+   </description>
+   <url>/saml/{sp}/config</url>
+   <format default="json">argument</format>
+   <authentication>user</authentication>
+   <transaction>required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>

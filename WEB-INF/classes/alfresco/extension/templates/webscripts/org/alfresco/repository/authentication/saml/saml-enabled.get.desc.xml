@@ -1,0 +1,44 @@
+<webscript>
+   <shortname>GET SAML Enabled</shortname>
+   <description>
+   <![CDATA[
+   Is SAML-enabled for given tenant or user's primary tenant ?
+   
+   http://<host>:<port>/alfresco/s/internal/saml/{sp}/enabled/tenant/{tenant_domain}
+   http://<host>:<port>/alfresco/service/internal/{sp}/saml/enabled/tenant/{tenant_domain}
+   
+   http://<host>:<port>/alfresco/s/internal/saml/{sp}/enabled/user/{username}
+   http://<host>:<port>/alfresco/service/internal/{sp}/saml/enabled/user/{username}
+   
+   Example response from this web script for /tenant:
+   
+      {
+         "isSamlEnabled" : true | false,
+         "isSamlEnforced": true | false,
+         "idpDescription": "Identity Provider",
+         "tenantDomain" : "acme.co.uk"
+      }
+      
+   Example response from this web script for /user:
+   
+      { 
+         "isSamlEnabled" : true | false,
+         "isSamlEnforced": true | false,
+         "idpDescription": "Identity Provider",
+         "isNetAdmin" : true | false,
+         "tenantDomain" : "acme.co.uk"
+      }
+   
+   Notes: 
+   - Share will make a proxied call to this (unauthenticated) webscript
+   - if the Network/User does not exist then the webscript will still return false (with the tenantDomain, even if non-existent)
+   - in the case of /user, the "isNetAdmin" flag will be false unless the user is a Network Admin (for cloud use-case) or an Alfresco (Enterprise/System) Admin
+   ]]>
+   </description>
+   <url>/internal/saml/{sp}/enabled/tenant/{tenant_domain}</url>
+   <url>/internal/saml/{sp}/enabled/user/{username}</url>
+   <format default="json">argument</format>
+   <authentication>none</authentication>
+   <transaction allow="readonly">required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>

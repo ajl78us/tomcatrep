@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Admin Console - Upload SAML IdP Certificate POST method</shortname>
+   <description><![CDATA[Admin Console POST WebScript that uploads a SAML IdP certificate.]]></description>
+   <url>/enterprise/admin/admin-saml-idp-cert-upload/{sp}</url>
+   <format default="html" />
+   <authentication>admin</authentication>
+   <lifecycle>internal</lifecycle>
+   <transaction>required</transaction>
+</webscript>

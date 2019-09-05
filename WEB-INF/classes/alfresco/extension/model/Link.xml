@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://www.alfresco.org/model/dictionary/1.0" name="miklink:Link">
+    <description>This is michaels specific custom link extends alfresco oob cm:content object</description>
+    <author>Meharnath Borigi</author>
+    <imports>
+        <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+    </imports>
+    <namespaces>
+        <namespace uri="http://mikhub.michaels.com/link" prefix="miklink"/>
+    </namespaces>
+    <data-types/>
+    <constraints/>
+    <types>
+        <type name="miklink:mik_link">
+            <title>Michaels Link</title>
+            <parent>cm:content</parent>
+            <properties>
+                <property name="miklink:isInternal">
+                    <title>Internal</title>
+                    <description>If checked the link is launched within the same window</description>
+                    <type>d:boolean</type>
+                    <mandatory>true</mandatory>
+                    <default>false</default>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                    </index>
+                </property>
+                <property name="miklink:persona">
+                    <title>Persona</title>
+                    <description>This is user Persona</description>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                    <default>Team Member</default>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                        <facetable>false</facetable>
+                    </index>
+                    <constraints>
+                        <constraint name="miklink:LIST_d09dd935-f086-4ffe-81b1-69194a6ddb34" type="LIST">
+                            <parameter name="allowedValues">
+                                <list>
+                                    <value>Team Member</value>
+                                    <value>Supervisor</value>
+                                    <value>Store Manager</value>
+                                    <value>District</value>
+									<value>Market</value>
+                                    <value>Zone</value>
+                                    <value>Support Center</value>
+                                </list>
+                            </parameter>
+                            <parameter name="caseSensitive">
+                                <value>true</value>
+                            </parameter>
+                            <parameter name="sorted">
+                                <value>false</value>
+                            </parameter>
+                        </constraint>
+                    </constraints>
+                </property>
+                <property name="miklink:onIpad">
+                    <title>On Ipad</title>
+                    <type>d:boolean</type>
+                    <mandatory>true</mandatory>
+                    <default>true</default>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                    </index>
+                </property>
+                <property name="miklink:endDate">
+                    <title>End Date</title>
+                    <type>d:datetime</type>
+                    <mandatory>false</mandatory>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                    </index>
+                </property>
+                <property name="miklink:browser">
+                    <title>Browser</title>
+                    <description>This is the browser in which the link is launched</description>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                    <default>IE</default>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                        <facetable>false</facetable>
+                    </index>
+                    <constraints>
+                        <constraint name="miklink:LIST_4a9dab49-0657-4beb-8f11-0e4768179e02" type="LIST">
+                            <parameter name="allowedValues">
+                                <list>
+									<value>IE</value>
+                                    <value>Chrome</value>
+                                </list>
+                            </parameter>
+                            <parameter name="caseSensitive">
+                                <value>true</value>
+                            </parameter>
+                            <parameter name="sorted">
+                                <value>false</value>
+                            </parameter>
+                        </constraint>
+                    </constraints>
+                </property>
+                <property name="miklink:archiveDate">
+                    <title>Archive Date</title>
+                    <type>d:datetime</type>
+                    <mandatory>false</mandatory>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                    </index>
+                </property>
+                <property name="miklink:linkType">
+                    <title>Link Type</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                    <default>Desktop</default>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                        <facetable>false</facetable>
+                    </index>
+                    <constraints>
+                        <constraint name="miklink:LIST_e830b206-0cbf-4b71-8fcc-67f643b016a1" type="LIST">
+                            <parameter name="allowedValues">
+                                <list>
+                                    <value>Desktop</value>
+                                    <value>All</value>
+                                </list>
+                            </parameter>
+                            <parameter name="sorted">
+                                <value>false</value>
+                            </parameter>
+                        </constraint>
+                    </constraints>
+                </property>
+                <property name="miklink:isApproved">
+                    <title>Approved</title>
+                    <type>d:boolean</type>
+                    <mandatory>true</mandatory>
+                    <default>false</default>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                    </index>
+                </property>
+                <property name="miklink:startDate">
+                    <title>Start Date</title>
+                    <type>d:datetime</type>
+                    <mandatory>true</mandatory>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                    </index>
+                </property>
+                <property name="miklink:url">
+                    <title>URL</title>
+                    <description>This is URL of the link</description>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                    <index enabled="true">
+                        <tokenised>TRUE</tokenised>
+                        <facetable>false</facetable>
+                    </index>
+                </property>
+            </properties>
+            <associations/>
+            <overrides/>
+            <mandatory-aspects/>
+        </type>
+    </types>
+    <aspects/>
+</model>

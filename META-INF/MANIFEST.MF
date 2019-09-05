@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Implementation-Title: Alfresco Platform WAR Enterprise
+Build-Date: 2018-06-26T14:15:01Z
+Build-Number: 18
+Implementation-Version: 5.2.4
+Archiver-Version: Plexus Archiver
+Built-By: build
+Specification-Vendor: Alfresco Software
+Specification-Title: Alfresco Platform WAR Enterprise
+Implementation-Vendor-Id: org.alfresco
+Build-Key: HF-ENT525-BUIL-18
+Implementation-Vendor: Alfresco Software
+DisableIBMJAXWSEngine: true
+Build-Revision: 726ca8d5
+Build-Name: "HotFix - Enterprise 5.2 - 5.2.4
+Created-By: Apache Maven 3.2.5
+Build-Jdk: 1.8.0_151
+Implementation-URL: http://www.alfresco.org/alfresco-parent/alfresco-e
+ nterprise-parent/enterprise-overlay/alfresco-platform-enterprise/
+Specification-Version: 5.2.4
+
+Name: Source-control
+Source-Url: git@git.alfresco.com:Repository/repo.git
+Source-Revision: 726ca8d5
+Last-change-Revision: 726ca8d5
+

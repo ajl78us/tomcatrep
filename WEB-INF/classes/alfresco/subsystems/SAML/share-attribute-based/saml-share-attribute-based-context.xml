@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- Import common SAML beans -->
+    <import resource="../common-saml-context.xml" />
+    <import resource="../share-saml-context.xml" />
+
+    <!-- Attribute based SP Config Admin Service -->
+    <bean id="samlSpConfigAdminService"
+          class="org.alfresco.repo.security.authentication.saml.sp.SAMLSPConfigAdminServiceAttributeServiceImpl" 
+          parent="baseSamlSpConfigAdminService" >
+        <property name="attributeService" ref="AttributeService" />
+        <property name="userMappingIdDefault" value="${saml.sp.user.mapping.id.default}" />
+        <!-- TODO will be used for user provisioning (SAML-175) -->
+        <property name="userMappingEmailDefault" value="${saml.sp.user.mapping.email.default}" />
+        <property name="userMappingFirstNameDefault" value="${saml.sp.user.mapping.firstName.default}" />
+        <property name="userMappingLastNameDefault" value="${saml.sp.user.mapping.lastName.default}" />
+    </bean>
+
+</beans>

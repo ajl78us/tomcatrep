@@ -1,0 +1,14 @@
+<webscript>
+    <shortname>SAML Repository SP logout request</shortname>
+    <description>
+        <![CDATA[
+   Navigate to this URL to initiate SAML logout optionally specifying the ticket
+   http://<host>:<port>/alfresco/service/saml/{network_domain}/{sp}/logout-request?ticket={ticket}
+   ]]>
+    </description>
+    <url>/saml/{network_domain}/{sp}/logout-request</url>
+    <format default="html">argument</format>
+    <authentication>none</authentication>
+    <transaction allow="readonly">required</transaction>
+    <lifecycle>internal</lifecycle>
+</webscript>

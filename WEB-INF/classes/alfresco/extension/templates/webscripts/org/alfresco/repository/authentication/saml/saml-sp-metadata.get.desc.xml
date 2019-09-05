@@ -1,0 +1,16 @@
+<webscript>
+   <shortname>GET SAML SP metadata XML (note: includes Network-specific URLs)</shortname>
+   <description>
+   <![CDATA[
+   http://<host>:<port>/alfresco/a/{network}/saml/{sp}/sp/metadata
+   
+   Notes:
+   - user must be a NetworkAdmin for given network/tenant
+   ]]>
+   </description>
+   <url>/saml/{sp}/sp/metadata</url>
+   <format default="xml">argument</format>
+   <authentication>user</authentication>
+   <transaction allow="readonly">required</transaction>
+   <lifecycle>internal</lifecycle>
+</webscript>
